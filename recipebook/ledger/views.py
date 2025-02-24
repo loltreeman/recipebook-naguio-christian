@@ -1,140 +1,21 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from .models import Recipe
 
-def recipe_list(request):
-    ctx = {
-        "recipes": [
-                {
-                    "name": "Recipe 1",
-                    "ingredients": [
-                        {
-                            "name": "tomato",
-                            "quantity": "3pcs"
-                        },
-                        {
-                            "name": "onion",
-                            "quantity": "1pc"
-                        },
-                        {
-                            "name": "pork",
-                            "quantity": "1kg"
-                        },
-                        {
-                            "name": "water",
-                            "quantity": "1L"
-                        },
-                        {
-                            "name": "sinigang mix",
-                            "quantity": "1 packet"
-                        }
-                    ],
-                    "link": "/recipe/1"
-                },
-                {
-                    "name": "Recipe 2",
-                    "ingredients": [
-                        {
-                            "name": "garlic",
-                            "quantity": "1 head"
-                        },
-                        {
-                            "name": "onion",
-                            "quantity": "1pc"
-                        },
-                        {
-                            "name": "vinegar",
-                            "quantity": "1/2cup"
-                        },
-                        {
-                            "name": "water",
-                            "quanity": "1 cup"
-                        },
-                        {
-                            "name": "salt",
-                            "quantity": "1 tablespoon"
-                        },
-                        {
-                            "name": "whole black peppers",
-                            "quantity": "1 tablespoon"
-                        },
-                        {
-                            "name": "pork",
-                            "quantity": "1 kilo"
-                        }
-                    ],
-                    "link": "/recipe/2"
-                }
-            ]
-        }
+# So I want to display a list for all the recipe objects
+# I don't know what to do AHHHHHHHHH
+# I think you make views like actually now instead of the request type shi
+# so like instead of return render(req) type, you actuallly make object name for that bruhh
+# TODO: maybe make like context obj name and like make a way to substitute the request render and just refer ing and rep
 
-    return render(request, "recipe_list.html", ctx)
+class RecipeListView(ListView):
 
-def recipe_1(request):
+    template_name = 'recipeList.html'
+    model = Recipe
+    context_object_name = 'recipes'
+    
+class RecipeDetailView(DetailView):
 
-    ctx = {
-            "name": "Recipe Book | Recipe 1",
-            "ingredients": [
-                {
-                    "name": "tomato",
-                    "quantity": "3pcs"
-                },
-                {
-                    "name": "onion",
-                    "quantity": "1pc"
-                },
-                {
-                    "name": "pork",
-                    "quantity": "1kg"
-                },
-                {
-                    "name": "water",
-                    "quantity": "1L"
-                },
-                {
-                    "name": "sinigang mix",
-                    "quantity": "1 packet"
-                }
-            ],
-            "link": "/recipes/list"
-        }
-
-    return render(request, "recipe_1.html", ctx)
-
-def recipe_2(request):
-
-    ctx = {
-            "name": "Recipe Book | Recipe 2",
-            "ingredients": [
-                {
-                    "name": "garlic",
-                    "quantity": "1 head"
-                },
-                {
-                    "name": "onion",
-                    "quantity": "1pc"
-                },
-                {
-                    "name": "vinegar",
-                    "quantity": "1/2cup"
-                },
-                {
-                    "name": "water",
-                    "quantity": "1 cup"
-                },
-                {
-                    "name": "salt",
-                    "quantity": "1 tablespoon"
-                },
-                {
-                    "name": "whole black peppers",
-                    "quantity": "1 tablespoon"
-                },
-                {
-                    "name": "pork",
-                    "quantity": "1 kilo"
-                }
-            ],
-            "link": "/recipes/list"
-        }
-
-    return render(request, "recipe_2.html", ctx)
+    model = Recipe
+    template_name = 'recipeDetails.html'
+    context_object_name = 'recipe'
