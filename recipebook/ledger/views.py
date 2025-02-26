@@ -1,3 +1,5 @@
+from django.shortcuts import render
+from django.http import HttpResponse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from .models import Recipe
@@ -19,3 +21,5 @@ class RecipeDetailView(DetailView):
     model = Recipe
     template_name = 'recipeDetails.html'
     context_object_name = 'recipe'
+
+

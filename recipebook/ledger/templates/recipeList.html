@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Recipe Book # List</title>
+</head>
+<body>
+    <h1>Recipe Book # List</h1>
+    <ul>
+        {% for recipe in recipes %}
+        <li>
+            <h2>{{ recipe.name }}</h2>
+            <ul>
+                {% for recipe_ingredient in recipe.ingredients.all %}
+                <li>{{ recipe_ingredient.quantity }} {{ recipe_ingredient.ingredient.name }}</li>
+                {% endfor %}
+            </ul>
+            <a href="http://localhost:8000/recipes/list/">Link to Recipe</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
