@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
-    
+<html lang="EN">
 <head>
     <title>{{ recipe.name }}</title>
 </head>
@@ -8,7 +7,7 @@
     <h1>Recipe Book</h1>
     <h2>{{ recipe.name }}</h2>
     <ul>
-        {% for recipe_ingredient in ingredients %}
+        {% for recipe_ingredient in recipe.ingredients.all %}
         <li>{{ recipe_ingredient.quantity }} {{ recipe_ingredient.ingredient.name }}</li>
         {% endfor %}
     </ul>
