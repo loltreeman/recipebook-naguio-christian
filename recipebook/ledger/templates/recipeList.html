@@ -9,7 +9,7 @@
         {% for recipe in recipes %}
         <li>
             <h2><ul>
-                <a href="{% url 'recipe_detail' pk=recipe.pk %}">{{ recipe.name }}</a>
+                <a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a>
             </ul></h2>
         </li>
         {% endfor %}
