@@ -12,4 +12,11 @@ class RecipeAdmin(admin.ModelAdmin):
     search_fields = ('name', )  
     inlines = [RecipeIngredientInline]
 
+class IngredientAdmin(admin.ModelAdmin):
+    
+    model = Ingredient 
+    list_display = ('name', )
+    search_fields = ('name',  )
+
 admin.site.register(Recipe, RecipeAdmin)
+admin.site.register(Ingredient, IngredientAdmin)
