@@ -21,6 +21,7 @@ class IngredientAdmin(admin.ModelAdmin):
     search_fields = ('name',  )
 
 class RecipeIngredientAdmin(admin.ModelAdmin):
+    
     model = RecipeIngredient
     list_display = ('recipe', 'ingredient', 'quantity')  
     list_filter = ('recipe', 'ingredient')  
