@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<html lang="EN">
-<head>
-    <title>Recipe Book - List</title>
-</head>
-<body>
-    <h1>Recipe Book </h1>
-    <ul>
-        {% for recipe in recipes %}
-        <li>
-            <h2><ul>
-                <a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a>
-            </ul></h2>
-        </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}List{% endblock %}
+
+{% block page_heading %}Recipe List{% endblock %}
+
+{% block content %}
+<ul>
+    {% for recipe in recipes %}
+    <li>
+        <h2><a href="{% url 'ledger:recipe_detail' recipe.pk %}">{{ recipe.name }}</a></h2>
+        <ul>
+            {% for recipe_ingredient in recipe.ingredients.all %}
+            {% endfor %}
+        </ul>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}
