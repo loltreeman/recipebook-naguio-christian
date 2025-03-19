@@ -14,7 +14,7 @@ class Profile(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=100)
-    author = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
+    author = models.OneToOneField(Profile, on_delete=models.CASCADE, default=None)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
