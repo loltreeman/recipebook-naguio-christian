@@ -6,7 +6,7 @@
 
 {% block content %}
 <h2>{{ recipe.name }}</h2>
-<p><strong>Author:</strong> {{ recipe.author.username }}</p>
+<p><strong>Author:</strong> {{ recipe.author.profile.name }}</p>
 <p><strong>Created on:</strong> {{ recipe.created_on }}</p>
 <p><strong>Updated on:</strong> {{ recipe.updated_on }}</p>
 <ul>
