@@ -5,17 +5,16 @@
 {% block page_heading %}Recipe Details{% endblock %}
 
 {% block content %}
-<h2>{{ recipe.name }}</h2>
-<p><strong>Author:</strong> {{ recipe.author.name }}</p>
-<p><strong>Created on:</strong> {{ recipe.created_on }}</p>
-<p><strong>Updated on:</strong> {{ recipe.updated_on }}</p>
-<ul>
-    {% for recipe_ingredient in recipe.ingredients.all %}
-    <li>{{ recipe_ingredient.quantity }} {{ recipe_ingredient.ingredient.name }}</li>
-    {% endfor %}
-</ul>
-
-<form action="{% url 'ledger:recipe_list' %}" method="get">
-    <button type="submit">Go back</button>
-</form>
+    <h2>{{ recipe.name }}</h2>
+        <p><strong>Author:</strong> {{ recipe.author.name }}</p>
+        <p><strong>Created on:</strong> {{ recipe.created_on }}</p>
+        <p><strong>Updated on:</strong> {{ recipe.updated_on }}</p>
+        <ul>
+            {% for recipe_ingredient in recipe.ingredients.all %}
+                <li>{{ recipe_ingredient.quantity }} {{ recipe_ingredient.ingredient.name }}</li>
+            {% endfor %}
+        </ul>
+    <form action="{% url 'ledger:recipe_list' %}" method="get">
+        <button type="submit">Go back</button>
+    </form>
 {% endblock %}
