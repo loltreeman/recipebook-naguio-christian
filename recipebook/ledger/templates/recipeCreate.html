@@ -7,15 +7,14 @@ Recipe Image Upload
 {% endblock %}
 
 {% block content %}
-
-    <h3><em>Upload Recipe Image For: {{ recipe.name }}</em></h3>
+    <h3>Upload Recipe Image For: {{ recipe.name }}</h3>
     
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Upload Image</button>
     </form>
-
-    <a href="{% url 'ledger:recipe_detail' recipe.pk %}">Back to Recipe</a>
-
+    <br>
+        <a href="{% url 'ledger:recipe_detail' recipe.pk %}">Back to Recipe</a>
+    </br>
 {% endblock %}>
