@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
-from .models import Ingredient, Recipe, RecipeIngredient, Profile
+from .models import Ingredient, Recipe, RecipeIngredient, Profile, RecipeImageInline
 
 # Register your models here.
 
@@ -21,7 +21,7 @@ class RecipeAdmin(admin.ModelAdmin):
     model = Recipe
     list_display = ('name', ) 
     search_fields = ('name', )  
-    inlines = [RecipeIngredientInline]
+    inlines = [RecipeIngredientInline, RecipeImageInline]
 
 class IngredientAdmin(admin.ModelAdmin):
     
