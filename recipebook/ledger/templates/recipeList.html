@@ -5,6 +5,11 @@
 {% block page_heading %}Recipe List{% endblock %}
 
 {% block content %}
+
+<h3>
+    <a href="{% url 'ledger:recipe_add' %}">Add New Recipe</a>
+</h3>
+
 <ul>
     {% for recipe in recipes %}
     <li>
