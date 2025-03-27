@@ -1,6 +1,11 @@
-from django.views.generic import ListView, DetailView
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Recipe
+from django.urls import reverse_lazy
+from . import models, forms
+from .forms import RecipeForm, RecipeImageForm
+
 
 class RecipeListView(LoginRequiredMixin, ListView):
 
@@ -13,3 +18,33 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
     model = Recipe
     template_name = 'recipeDetail.html'
     context_object_name = 'recipe'
+
+class RecipeCreateView(LoginRequiredMixin, CreateView):
+     model = models.Recipe
+     form_class = forms.RecipeForm
+     template_name = 'recipeAdd.html'
+
+class RecipeImageCreateView(LoginRequiredMixin, CreateView):
+    model = models.RecipeImage
+    form_class = RecipeImageForm
+    template_name = 'recipeCreate.html'
+
+    def form_valid(self, form):
+        recipe = get_object_or_404(models.Recipe, pk=self.kwargs['pk'])
+        recipe_image = form.save(commit=False)
+        recipe_image.recipe = recipe
+        recipe_image.save()
+        return redirect('ledger:recipe_detail', pk=recipe.pk) 
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'ledger:recipe_detail',
+            kwargs={'pk': self.kwargs['pk']}
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['recipe'] = get_object_or_404(
+            models.Recipe, pk=self.kwargs['pk']
+        )
+        return context
