@@ -5,15 +5,32 @@
 {% block page_heading %}Recipe Details{% endblock %}
 
 {% block content %}
-    <h2>{{ recipe.name }}</h2>
-        <p><strong>Author:</strong> {{ recipe.author.name }}</p>
-        <p><strong>Created on:</strong> {{ recipe.created_on }}</p>
-        <p><strong>Updated on:</strong> {{ recipe.updated_on }}</p>
-        <ul>
-            {% for recipe_ingredient in recipe.ingredients.all %}
-                <li>{{ recipe_ingredient.quantity }} {{ recipe_ingredient.ingredient.name }}</li>
-            {% endfor %}
-        </ul>
+    <h1>{{ recipe.name }}</h1>
+    
+    <p><strong>Author:</strong> {{ recipe.author.name }}</p>
+    <p><strong>Created on:</strong> {{ recipe.created_on }}</p>
+    <p><strong>Updated on:</strong> {{ recipe.updated_on }}</p>
+
+    <a href="{% url 'ledger:recipes_add_image' recipe.pk %}">Upload Image</a>
+
+    <h2>Ingredients</h2>
+    <ul>
+        {% for recipe_ingredient in recipe.ingredients.all %}
+            <li>{{ recipe_ingredient.quantity }} {{ recipe_ingredient.ingredient.name }}</li>
+        {% empty %}
+            <li>No ingredients added.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Images</h2>
+    {% if recipe.images.all %}
+        {% for image in recipe.images.all %}
+            <img src="{{ image.image.url }}" alt="{{ image.description }}">
+        {% endfor %}
+    {% else %}
+        <p>No images submitted</p>
+    {% endif %}
+
     <form action="{% url 'ledger:recipe_list' %}" method="get">
         <button type="submit">Go back</button>
     </form>
