@@ -11,7 +11,7 @@
     <p><strong>Created on:</strong> {{ recipe.created_on }}</p>
     <p><strong>Updated on:</strong> {{ recipe.updated_on }}</p>
 
-    <a href="{% url 'ledger:recipes_add_image' recipe.pk %}">Upload Image</a>
+    <a href="{% url 'ledger:recipe_add_image' recipe.pk %}">Upload Image</a>
 
     <h2>Ingredients</h2>
     <ul>
