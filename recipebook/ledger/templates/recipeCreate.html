@@ -1,18 +1,20 @@
 {% extends 'base.html' %}
-
 {% load static %}
 
 {% block title %}Recipe Image Upload{% endblock %}
 
 {% block content %}
-    <h3>Upload Recipe Image For: {{ recipe.name }}</h3>
-    
+<div class="card shadow-sm">
+  <div class="card-body">
+    <h3 class="card-title mb-4">Upload Recipe Image For: {{ recipe.name }}</h3>
     <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
+      {% csrf_token %}
+      <div class="mb-3">
         {{ form.as_p }}
-        <button type="submit">Upload Image</button>
+      </div>
+      <button type="submit" class="btn btn-primary">Upload Image</button>
     </form>
-    <br>
-        <a href="{% url 'ledger:recipe_detail' recipe.pk %}">Back to Recipe</a>
-    </br>
-{% endblock %}>
+    <a href="{% url 'ledger:recipe_detail' recipe.pk %}" class="btn btn-secondary mt-3">Back to Recipe</a>
+  </div>
+</div>
+{% endblock %}

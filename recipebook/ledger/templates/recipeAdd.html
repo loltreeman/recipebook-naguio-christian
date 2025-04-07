@@ -1,21 +1,47 @@
 {% extends 'base.html' %}
 
-{% block title %}Create New Recipe{% endblock %}
-
-{% block page_heading %}Create New Recipe{% endblock %}
+{% block title %}Add New Recipe{% endblock %}
 
 {% block content %}
-  <form method="POST" enctype="multipart/form-data">
+<a href="{% url 'ledger:recipe_list' %}" class="btn btn-link mb-3">Back to List</a>
+
+<div class="card mb-4">
+  <div class="card-header">
+    <h2>Recipe</h2>
+  </div>
+  <div class="card-body">
+    <form method="POST" action="{% url 'ledger:recipe_add' %}">
       {% csrf_token %}
       {{ form.as_p }}
-      <h2>Ingredients:</h2>
-      <div>
-          {{ recipe_ingredient_form.as_p }}
-          <a href="{% url 'ledger:recipe_add_ingredient' %}">Define New Ingredient</a>
-      </div>
-      <button type="submit">Submit</button>
-  </form>
+      <button type="submit" class="btn btn-primary">Submit Recipe</button>
+    </form>
+  </div>
+</div>
 
-  <br>
-  <a href="{% url 'ledger:recipe_list' %}">Back to List</a>
+<div class="card mb-4">
+  <div class="card-header">
+    <h2>Ingredient</h2>
+  </div>
+  <div class="card-body">
+    <form method="POST" action="{% url 'ledger:recipe_add_ingredient' %}">
+      {% csrf_token %}
+      {{ ingredient_form.as_p }}
+      <button type="submit" class="btn btn-primary">Submit Ingredient</button>
+    </form>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header">
+    <h2>Recipe Ingredient</h2>
+  </div>
+  <div class="card-body">
+    <form method="POST" action="{% url 'ledger:recipe_ingredient_add' %}">
+      {% csrf_token %}
+      {{ recipe_ingredient_form.as_p }}
+      <button type="submit" class="btn btn-primary">Submit Recipe Ingredient</button>
+    </form>
+  </div>
+</div>
+
 {% endblock %}
