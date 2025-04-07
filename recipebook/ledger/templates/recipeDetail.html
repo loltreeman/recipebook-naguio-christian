@@ -2,39 +2,44 @@
 
 {% block title %}{{ recipe.name }}{% endblock %}
 
-{% block page_heading %}Recipe Details{% endblock %}
-
 {% block content %}
-    <h1>{{ recipe.name }}</h1>
-    
-    <p><strong>Author:</strong> {{ recipe.author.name }}</p>
-    <p><strong>Created on:</strong> {{ recipe.created_on }}</p>
-    <p><strong>Updated on:</strong> {{ recipe.updated_on }}</p>
+<div class="card mb-4 shadow-sm">
+    <div class="card-body">
+        <h1 class="card-title">{{ recipe.name }}</h1>
+        <p class="card-subtitle mb-2 text-muted">
+            <strong>Author:</strong> {{ recipe.author.name }}<br>
+            <strong>Created:</strong> {{ recipe.created_on }}<br>
+            <strong>Updated:</strong> {{ recipe.updated_on }}
+        </p>
+        <a href="{% url 'ledger:recipe_add_image' recipe.pk %}" class="btn btn-primary btn-sm">Upload Image</a>
+    </div>
+</div>
 
-    <a href="{% url 'ledger:recipe_add_image' recipe.pk %}">Upload Image</a>
-
-    <h2>Ingredients</h2>
-    <ul>
+<div class="mb-4">
+    <h3>Ingredients</h3>
+    <ul class="list-group">
         {% for recipe_ingredient in recipe.ingredients.all %}
-            <li>{{ recipe_ingredient.quantity }} {{ recipe_ingredient.ingredient.name }}</li>
+            <li class="list-group-item">{{ recipe_ingredient.quantity }} {{ recipe_ingredient.ingredient.name }}</li>
         {% empty %}
-            <li>No ingredients added.</li>
+            <li class="list-group-item text-muted">No ingredients added.</li>
         {% endfor %}
     </ul>
+</div>
 
-    <h2>Images</h2>
-    {% if recipe.images.all %}
+<div class="mb-4">
+    <h3>Images</h3>
+    <div class="row">
         {% for image in recipe.images.all %}
-            <img src="{{ image.image.url }}" alt="{{ image.description }}">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.description }}">
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-muted">No images submitted</p>
         {% endfor %}
-    {% else %}
-        <p>No images submitted</p>
-    {% endif %}
+    </div>
+</div>
 
-    <form action="{% url 'ledger:recipe_list' %}" method="get">
-
-    <br>
-        <button type="submit">Go back</button>
-    </br>
-    </form>
+<a href="{% url 'ledger:recipe_list' %}" class="btn btn-secondary">Go Back</a>
 {% endblock %}

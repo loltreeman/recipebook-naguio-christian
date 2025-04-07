@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Recipe, Ingredient
 from django.urls import reverse_lazy, reverse
 from . import models, forms
-from .forms import RecipeForm, RecipeImageForm, RecipeIngredientForm
+from .forms import RecipeForm, RecipeImageForm, RecipeIngredientForm, IngredientForm
 class RecipeListView(LoginRequiredMixin, ListView):
 
     template_name = 'recipeList.html'
@@ -16,16 +16,32 @@ class RecipeDetailView(LoginRequiredMixin, DetailView):
     model = Recipe
     template_name = 'recipeDetail.html'
     context_object_name = 'recipe'
-
 class RecipeCreateView(LoginRequiredMixin, CreateView):
-     model = models.Recipe
-     form_class = forms.RecipeForm
-     template_name = 'recipeAdd.html'
+    model = models.Recipe
+    form_class = RecipeForm  
+    template_name = 'recipeAdd.html'
+    success_url = reverse_lazy("ledger:recipe_add")
 
-     def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['ingredient_form'] = IngredientForm()
         context['recipe_ingredient_form'] = RecipeIngredientForm()
         return context
+    
+    def form_valid(self, form):
+        profile = get_object_or_404(models.Profile, user=self.request.user)
+        form.instance.author = profile
+        return super().form_valid(form)
+class RecipeIngredientCreateView(LoginRequiredMixin, CreateView):
+    form_class = RecipeIngredientForm
+    template_name = 'recipeAdd.html'  
+
+    def form_valid(self, form):
+        form.save()
+        return redirect('ledger:recipe_add')  
+
+    def get_success_url(self):
+        return reverse_lazy('ledger:recipe_add')
 
 class RecipeImageCreateView(LoginRequiredMixin, CreateView):
     model = models.RecipeImage
